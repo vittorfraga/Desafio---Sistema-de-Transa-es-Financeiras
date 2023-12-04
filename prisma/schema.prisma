@@ -1,0 +1,40 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String    @unique
+  password   String
+  cpf        String    @unique
+  user_type  String
+  balance    Float     @default(0)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime?  @updatedAt @map("updated_at")
+
+  transactionsAsPayer Transaction[] @relation("PayerTransactions")
+  transactionsAsPayee Transaction[] @relation("PayeeTransactions")
+
+  @@map("users")
+}
+
+model Transaction {
+  id         String    @id @default(uuid())
+  payerId    String
+  payeeId    String
+  value      Float
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  payer      User      @relation("PayerTransactions", fields: [payerId], references: [id])
+  payee      User      @relation("PayeeTransactions", fields: [payeeId], references: [id])
+
+  @@map("transactions")
+}

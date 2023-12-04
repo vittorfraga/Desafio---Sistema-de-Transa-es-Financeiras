@@ -1,0 +1,15 @@
+@baseUrl = http://localhost:3333
+
+
+# @name create_transaction
+POST {{baseUrl}}/transaction
+Content-Type: application/json
+
+ {
+    "payerId": "7c16ed9a-c85c-4764-8734-b10b6c7ca6e9",
+    "payeeId": "a33d90c9-143e-4dd0-bdac-9239ccf4a380",
+    "value": 10
+}
+
+
+
