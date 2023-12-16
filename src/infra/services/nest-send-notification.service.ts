@@ -14,8 +14,6 @@ export class NestSendNotificationService implements SendNotificationService {
       })
     } catch (error) {
       console.error('Erro ao enviar notificação', error)
-
-      // você pode querer apenas logar o erro sem interromper o fluxo principal.
     }
   }
 }
